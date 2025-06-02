@@ -5,7 +5,39 @@ seeds:
     description: "Scooter models info and statistics"
     config:
       delimiter: ","
+      columns:
+      - name: "company"
+        description: "Наименование компании производителя"
+        data_tests: [ "unique_not_null" ]
+      - name: "model"
+        description: "Идентификатор модели"
+        data_tests: [ "unique_not_null" ]
+      - name: "hardware_id"
+        description: "Серийный номер"
+        data_tests: [ "unique_not_null" ]
+      - name: "scooters"
+        description: "Количество самоквато в наличии"
+        data_tests: [ "unique_not_null" ] 
+  
   - name: "event_types"
     description: "Meaningful types of mobile app events"
+    columns:
+      - name: "type_id"
+        description: "Номер идентификатора события type_id"
+        data_tests: [ "unique_not_null" ]
+      - name: "type"
+        description: "Наименование события type"
+        data_tests: [ "unique_not_null" ]
+
   - name: "age_groups"
-    description: "Age groups to split users for analysis"
+    description: "Age groups to split users by age for analysis"
+    columns:
+      - name: "group"
+        description: "Age group name for report"
+        data_tests: [ "unique_not_null" ]
+      - name: "age_start"
+        description: "Start age of group"
+        data_tests: [ "unique_not_null" ]
+      - name: "age_end"
+        description: "End age of group"
+        data_tests: [ "unique_not_null" ]
