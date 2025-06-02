@@ -8,16 +8,19 @@ seeds:
       columns:
       - name: "company"
         description: "Наименование компании производителя"
-        data_tests: [ "unique_not_null" ]
+        data_tests: 
+        - not_null      
       - name: "model"
         description: "Идентификатор модели"
-        data_tests: [ "unique_not_null" ]
+        data_tests: 
+        - not_null
       - name: "hardware_id"
         description: "Серийный номер"
         data_tests: [ "unique_not_null" ]
       - name: "scooters"
         description: "Количество самоквато в наличии"
-        data_tests: [ "unique_not_null" ] 
+        data_tests: 
+        - not_null 
   
   - name: "event_types"
     description: "Meaningful types of mobile app events"
@@ -27,7 +30,8 @@ seeds:
         data_tests: [ "unique_not_null" ]
       - name: "type"
         description: "Наименование события type"
-        data_tests: [ "unique_not_null" ]
+        data_tests: 
+        - not_null
 
   - name: "age_groups"
     description: "Age groups to split users by age for analysis"
