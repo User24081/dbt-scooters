@@ -1,15 +1,3 @@
 dbt-core
 dbt-postgres
 dbt-metricflow
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-        env:
-          PRIVATE_PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
