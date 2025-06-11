@@ -48,3 +48,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           dbt deps
+      - name: Run linter
+        run: sqlfluff lint
+        env:
+          DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
