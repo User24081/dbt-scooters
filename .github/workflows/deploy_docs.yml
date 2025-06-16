@@ -1,4 +1,4 @@
-name: Deploy dbt docs (Data Catalog) to GitHub Pages
+name: 🚀 Deploy dbt project to production with Data Catalog
 
 on:
   push:
@@ -8,47 +8,39 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  deploy:
+    name: 🚀 Deploy dbt project
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
 
     steps:
-      - name: Checkout repository
+      - name: ⬇️ Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install requirements
-        run: pip install -r requirements.txt
-          
-      - name: Prepare connection profile
-        run: cp profiles.example.yml profiles.yml
-
-      - name: Install dbt dependencies
-        run: dbt deps
-        env:
-          DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
-
-      - name: Generate docs
-        run: dbt docs generate
-        env:
-          DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
-
-      - name: Prepare site files
-        run: |
-          mkdir site
-          cp target/index.html site/
-          cp target/manifest.json site/
-          cp target/catalog.json site/
-
-      - name: Commit site for GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: site
-      - name: Install requirements
+      - name: ⚙️ Install requirements and prepare profiles
         run: |
           pip install -r requirements.txt
           dbt deps
-      - name: Run linter
+          cp profiles.example.yml profiles.yml
+
+      - name: ✅ Run linter
         run: sqlfluff lint
-        env:
-          DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
+
+      - name: 🏗️️ Build production environment
+        run: dbt build --target prod
+
+      - name: 🗃️ Generate Data Catalog
+        run: |
+          dbt docs generate --target prod
+          mkdir docs
+          cp target/index.html docs/
+          cp target/manifest.json docs/
+          cp target/catalog.json docs/
+
+      - name: ⬆️ Commit Data Catalog for GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs
