@@ -50,3 +50,5 @@ macros:
       - name: "granularity"
         type: "string"
         description: "Time granularity for report (daily/weekly/monthly)"
+  - name: "create_postgis"
+    description: "Create postgis extension"
