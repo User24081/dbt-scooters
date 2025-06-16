@@ -45,6 +45,8 @@ models:
     - name: "updated_at"
       description: "When row was updated last time"
       data_type: "timestamptz"
+  - name: "revenue_daily_stat"
+    description: "Overall daily revenue statistics"
 
 exposures:
   - name: "financial_dashboard"
@@ -56,6 +58,6 @@ exposures:
       - "ref('revenue_daily')"
     owner:
       name: "Finance department"
-
+  
 
   
